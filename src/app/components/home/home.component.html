@@ -8,12 +8,12 @@
             <div class="col-md-8">
               <h1 class="display-4 mb-2">Welcome Home!</h1>
               <p class="lead text-muted" *ngIf="currentUser">
-                Hello {{currentUser?.username || currentUser.username}}, you're successfully authenticated 
-                via <span class="badge bg-primary">{{currentUser.provider}}</span>
+                Hello {{currentUser?.username || currentUser?.username}}, you're successfully authenticated 
+                via <span class="badge bg-primary">{{currentUser?.provider}}</span>
               </p>
             </div>
             <div class="col-md-4 text-center" *ngIf="currentUser?.picture">
-              <img [src]="currentUser.picture" 
+              <img [src]="currentUser?.picture" 
                    class="rounded-circle profile-image" 
                    alt="Profile Picture">
             </div>
@@ -43,11 +43,11 @@
           
           <div *ngIf="helloMessage && !isLoading">
             <blockquote class="blockquote">
-              <p class="mb-0">"{{helloMessage.message}}"</p>
+              <p class="mb-0">"{{helloMessage?.message}}"</p>
             </blockquote>
             <footer class="blockquote-footer mt-2">
               <small class="text-muted">
-                <i class="fas fa-clock"></i> {{formatTimestamp(helloMessage.timestamp)}}
+                <i class="fas fa-clock"></i> {{formatTimestamp(helloMessage?.timestamp!)}}
               </small>
             </footer>
           </div>
@@ -65,11 +65,11 @@
         <div class="card-body">
           <div *ngIf="publicMessage">
             <blockquote class="blockquote">
-              <p class="mb-0">"{{publicMessage.message}}"</p>
+              <p class="mb-0">"{{publicMessage?.message}}"</p>
             </blockquote>
             <footer class="blockquote-footer mt-2">
               <small class="text-muted">
-                <i class="fas fa-clock"></i> {{formatTimestamp(publicMessage.timestamp)}}
+                <i class="fas fa-clock"></i> {{formatTimestamp(publicMessage?.timestamp!)}}
               </small>
             </footer>
           </div>

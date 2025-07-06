@@ -40,3 +40,16 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Environment files
+.env
+.env.*.local
+
+# Angular test coverage
+coverage/
+
+# Compiled files
+*.tsbuildinfo
+
+# Git
+.git/

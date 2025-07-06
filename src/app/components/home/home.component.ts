@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService, UserInfo, HelloResponse } from '../../services/auth.service';
+import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';  // For async pipe in template if needed
 
 @Component({
   selector: 'app-home',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
+
 export class HomeComponent implements OnInit {
   currentUser: UserInfo | null = null;
   helloMessage: HelloResponse | null = null;

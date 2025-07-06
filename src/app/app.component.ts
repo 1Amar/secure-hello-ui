@@ -1,9 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { AuthService, UserInfo } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterModule // ✅ This is enough if routes are provided at the bootstrap level
+  ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
@@ -12,18 +18,13 @@ export class AppComponent implements OnInit {
   currentUser: UserInfo | null = null;
   isAuthenticated = false;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    // Subscribe to authentication state
     this.authService.isAuthenticated$.subscribe(isAuth => {
       this.isAuthenticated = isAuth;
     });
 
-    // Subscribe to current user
     this.authService.currentUser$.subscribe(user => {
       this.currentUser = user;
     });
@@ -31,6 +32,5 @@ export class AppComponent implements OnInit {
 
   async logout(): Promise<void> {
     await this.authService.logout();
-    this.router.navigate(['/login']);
   }
 }

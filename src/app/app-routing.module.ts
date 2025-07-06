@@ -1,15 +1,26 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
-import { HomeComponent } from './components/home/home.component';
-import { ProfileComponent } from './components/profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
 
-const routes: Routes = [
+export const routes: Routes = [  // <-- add export here
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  {
+    path: 'login',
+    loadComponent: () =>
+      import('./components/login/login.component').then(m => m.LoginComponent)
+  },
+  {
+    path: 'home',
+    loadComponent: () =>
+      import('./components/home/home.component').then(m => m.HomeComponent),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'profile',
+    loadComponent: () =>
+      import('./components/profile/profile.component').then(m => m.ProfileComponent),
+    canActivate: [AuthGuard]
+  },
   { path: '**', redirectTo: '/login' }
 ];
 
@@ -17,4 +28,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

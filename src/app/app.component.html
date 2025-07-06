@@ -19,12 +19,12 @@
       <div class="navbar-nav ms-auto" *ngIf="currentUser">
         <span class="navbar-text me-3">
           <img *ngIf="currentUser.picture" 
-               [src]="currentUser.picture" 
+               [src]="currentUser?.picture" 
                class="rounded-circle me-2" 
                width="30" height="30" 
                alt="Profile">
-          Welcome, {{currentUser.name || currentUser.username}}!
-          <small class="text-muted">({{currentUser.provider}})</small>
+          Welcome, {{currentUser?.name || currentUser?.username}}!
+          <small class="text-muted">({{currentUser?.provider}})</small>
         </span>
         <button class="btn btn-outline-light btn-sm" (click)="logout()">
           <i class="fas fa-sign-out-alt"></i> Logout

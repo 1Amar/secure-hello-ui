@@ -1,59 +1,83 @@
-# SecureHelloUi
+# Secure Hello UI
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.3.
+This project is an Angular application that demonstrates secure authentication and message retrieval using a Keycloak-based authentication system. It features a simple UI with login, profile, and home components, and interacts with a backend to fetch both public and secured messages.
 
-## Development server
+## Features
+- User authentication with Keycloak
+- Protected routes using Angular guards
+- Fetching secured and public messages from backend services
+- User profile display
+- Modular Angular structure with standalone components
 
-To start a local development server, run:
-
-```bash
-ng serve
+## Project Structure
+```
+secure-hello-ui/
+├── angular.json
+├── package.json
+├── README.md
+├── tsconfig*.json
+├── public/
+├── src/
+│   ├── index.html
+│   ├── main.ts
+│   ├── styles.scss
+│   └── app/
+│       ├── app-routing.module.ts
+│       ├── app.component.*
+│       ├── app.module.ts
+│       ├── components/
+│       │   ├── home/
+│       │   ├── login/
+│       │   └── profile/
+│       ├── guards/
+│       ├── services/
+│       └── environments/
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Getting Started
 
-## Code scaffolding
+### Prerequisites
+- Node.js (v16 or higher recommended)
+- npm (v8 or higher)
+- Angular CLI (optional, for development)
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Installation
+1. Clone the repository:
+   ```sh
+   git clone <repository-url>
+   cd secure-hello-ui
+   ```
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
 
-```bash
-ng generate component component-name
+### Running the Application
+Start the development server:
+```sh
+npm start
+```
+The app will be available at `http://localhost:4200/` by default.
+
+### Running Tests
+To execute unit tests:
+```sh
+npm test
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Authentication
+This project uses Keycloak for authentication. Make sure your Keycloak server is running and the configuration in `keycloak-init.service.ts` matches your environment.
 
-```bash
-ng generate --help
-```
+## Project Structure Overview
+- `src/app/components/` — Contains feature components (home, login, profile)
+- `src/app/services/` — Contains authentication and API service logic
+- `src/app/guards/` — Contains route guards for protected routes
+- `src/assets/` — Static assets
+- `src/environments/` — Environment-specific configuration
 
-## Building
+## Customization
+- Update Keycloak settings in `keycloak-init.service.ts` as needed.
+- Modify styles in `src/styles.scss` or component-specific SCSS files.
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## License
+This project is licensed under the MIT License.

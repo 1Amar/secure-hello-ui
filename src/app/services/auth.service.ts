@@ -155,4 +155,7 @@ export class AuthService {
   getCurrentUser(): UserInfo | null {
     return this.currentUserSubject.value;
   }
+
+  //improvements 
+  // Move hardcoded URLs to environment.ts in AuthService. From this file
 }

@@ -17,8 +17,8 @@
 
           <div *ngIf="currentUser && !isLoading" class="profile-content">
             <div class="profile-image-container mb-3">
-              <img *ngIf="currentUser.picture" 
-                   [src]="currentUser.picture" 
+              <img *ngIf="currentUser?.picture" 
+                   [src]="currentUser?.picture" 
                    class="profile-image rounded-circle"
                    alt="Profile Picture">
               <div *ngIf="!currentUser.picture" class="profile-placeholder">
@@ -26,15 +26,15 @@
               </div>
             </div>
 
-            <h2 class="profile-name">{{currentUser.name || currentUser.username}}</h2>
+            <h2 class="profile-name">{{currentUser?.name || currentUser?.username}}</h2>
             <p class="profile-email text-muted">
-              <i class="fas fa-envelope me-2"></i>{{currentUser.email || 'No email provided'}}
+              <i class="fas fa-envelope me-2"></i>{{currentUser?.email || 'No email provided'}}
             </p>
             
             <div class="provider-badge">
-              <span class="badge bg-{{getProviderColor(currentUser.provider)}} fs-6">
-                <i [class]="getProviderIcon(currentUser.provider)"></i>
-                Authenticated via {{currentUser.provider}}
+              <span class="badge bg-{{getProviderColor(currentUser?.provider || '')}} fs-6">
+                <i [class]="getProviderIcon(currentUser?.provider || '')"></i>
+                Authenticated via {{currentUser?.provider}}
               </span>
             </div>
           </div>
@@ -53,25 +53,25 @@
             <div class="col-md-6">
               <div class="detail-item">
                 <strong>Username:</strong>
-                <span class="ms-2">{{currentUser.username}}</span>
+                <span class="ms-2">{{currentUser?.username}}</span>
               </div>
             </div>
             <div class="col-md-6">
               <div class="detail-item">
                 <strong>Email:</strong>
-                <span class="ms-2">{{currentUser.email || 'Not provided'}}</span>
+                <span class="ms-2">{{currentUser?.email || 'Not provided'}}</span>
               </div>
             </div>
             <div class="col-md-6">
               <div class="detail-item">
                 <strong>Full Name:</strong>
-                <span class="ms-2">{{currentUser.name || 'Not provided'}}</span>
+                <span class="ms-2">{{currentUser?.name || 'Not provided'}}</span>
               </div>
             </div>
             <div class="col-md-6">
               <div class="detail-item">
                 <strong>Auth Provider:</strong>
-                <span class="ms-2">{{currentUser.provider}}</span>
+                <span class="ms-2">{{currentUser?.provider}}</span>
               </div>
             </div>
           </div>
