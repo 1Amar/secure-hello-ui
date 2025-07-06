@@ -1,0 +1,84 @@
+.welcome-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  
+  .card-body {
+    padding: 3rem 2rem;
+  }
+  
+  .display-4 {
+    font-weight: 300;
+  }
+  
+  .badge {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+}
+
+.profile-image {
+  width: 120px;
+  height: 120px;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  object-fit: cover;
+}
+
+.card {
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.card-header {
+  border-bottom: none;
+  font-weight: 500;
+  
+  i {
+    margin-right: 8px;
+  }
+}
+
+.blockquote {
+  font-size: 1.1rem;
+  font-style: italic;
+}
+
+.btn {
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  transition: all 0.2s ease;
+  
+  i {
+    margin-right: 5px;
+  }
+  
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+.spinner-border {
+  width: 2rem;
+  height: 2rem;
+}
+
+@media (max-width: 768px) {
+  .welcome-card .card-body {
+    padding: 2rem 1rem;
+  }
+  
+  .profile-image {
+    width: 80px;
+    height: 80px;
+    margin-top: 1rem;
+  }
+  
+  .display-4 {
+    font-size: 2rem;
+  }
+}

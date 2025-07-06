@@ -1,0 +1,104 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <!-- Profile Header -->
+      <div class="card profile-header mb-4">
+        <div class="card-body text-center">
+          <div *ngIf="isLoading" class="text-center py-4">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Loading profile...</p>
+          </div>
+
+          <div *ngIf="error" class="alert alert-danger">
+            <i class="fas fa-exclamation-triangle"></i> {{error}}
+          </div>
+
+          <div *ngIf="currentUser && !isLoading" class="profile-content">
+            <div class="profile-image-container mb-3">
+              <img *ngIf="currentUser.picture" 
+                   [src]="currentUser.picture" 
+                   class="profile-image rounded-circle"
+                   alt="Profile Picture">
+              <div *ngIf="!currentUser.picture" class="profile-placeholder">
+                <i class="fas fa-user"></i>
+              </div>
+            </div>
+
+            <h2 class="profile-name">{{currentUser.name || currentUser.username}}</h2>
+            <p class="profile-email text-muted">
+              <i class="fas fa-envelope me-2"></i>{{currentUser.email || 'No email provided'}}
+            </p>
+            
+            <div class="provider-badge">
+              <span class="badge bg-{{getProviderColor(currentUser.provider)}} fs-6">
+                <i [class]="getProviderIcon(currentUser.provider)"></i>
+                Authenticated via {{currentUser.provider}}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile Details -->
+      <div class="card" *ngIf="currentUser && !isLoading">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-info-circle"></i> Profile Details
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="detail-item">
+                <strong>Username:</strong>
+                <span class="ms-2">{{currentUser.username}}</span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="detail-item">
+                <strong>Email:</strong>
+                <span class="ms-2">{{currentUser.email || 'Not provided'}}</span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="detail-item">
+                <strong>Full Name:</strong>
+                <span class="ms-2">{{currentUser.name || 'Not provided'}}</span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="detail-item">
+                <strong>Auth Provider:</strong>
+                <span class="ms-2">{{currentUser.provider}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="card mt-4">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-cog"></i> Actions
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="d-flex flex-wrap gap-2">
+            <button class="btn btn-outline-primary" (click)="refreshProfile()">
+              <i class="fas fa-sync-alt"></i> Refresh Profile
+            </button>
+            <a class="btn btn-outline-success" routerLink="/home">
+              <i class="fas fa-home"></i> Back to Home
+            </a>
+            <button class="btn btn-outline-info" onclick="window.print()">
+              <i class="fas fa-print"></i> Print Profile
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
