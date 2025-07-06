@@ -8,7 +8,7 @@
             <div class="col-md-8">
               <h1 class="display-4 mb-2">Welcome Home!</h1>
               <p class="lead text-muted" *ngIf="currentUser">
-                Hello {{currentUser.name || currentUser.username}}, you're successfully authenticated 
+                Hello {{currentUser?.username || currentUser.username}}, you're successfully authenticated 
                 via <span class="badge bg-primary">{{currentUser.provider}}</span>
               </p>
             </div>

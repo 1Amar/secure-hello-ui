@@ -16,10 +16,9 @@ import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginComponent,
-    HomeComponent,
-    ProfileComponent
+    // LoginComponent,
+    // HomeComponent,
+    // ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +26,8 @@ import { AuthGuard } from './guards/auth.guard';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    KeycloakAngularModule
+    KeycloakAngularModule,
+    AppComponent
   ],
   providers: [
     AuthService,
@@ -35,6 +35,5 @@ import { AuthGuard } from './guards/auth.guard';
     AuthGuard,
     KeycloakService
   ],
-  bootstrap: [AppComponent]
 })
 export class AppModule { }
