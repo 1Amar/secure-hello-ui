@@ -1,0 +1,144 @@
+.profile-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+}
+
+.profile-content {
+  padding: 2rem 1rem;
+}
+
+.profile-image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border: 5px solid rgba(255, 255, 255, 0.3);
+  object-fit: cover;
+}
+
+.profile-placeholder {
+  width: 150px;
+  height: 150px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.profile-name {
+  font-size: 2.5rem;
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+}
+
+.profile-email {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.provider-badge {
+  margin-top: 1rem;
+  
+  .badge {
+    padding: 0.75rem 1.5rem;
+    border-radius: 25px;
+    
+    i {
+      margin-right: 8px;
+    }
+  }
+}
+
+.card {
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.card-header {
+  background: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  border-radius: 10px 10px 0 0 !important;
+  
+  h5 {
+    color: #495057;
+    font-weight: 500;
+    
+    i {
+      margin-right: 8px;
+    }
+  }
+}
+
+.detail-item {
+  margin-bottom: 1rem;
+  padding: 0.5rem 0;
+  
+  strong {
+    color: #495057;
+  }
+  
+  span {
+    color: #6c757d;
+  }
+}
+
+.btn {
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  transition: all 0.2s ease;
+  
+  i {
+    margin-right: 5px;
+  }
+  
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+.spinner-border {
+  width: 2rem;
+  height: 2rem;
+}
+
+@media (max-width: 768px) {
+  .profile-image,
+  .profile-placeholder {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .profile-name {
+    font-size: 2rem;
+  }
+  
+  .profile-email {
+    font-size: 1rem;
+  }
+  
+  .provider-badge .badge {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media print {
+  .card-header,
+  .btn {
+    display: none !important;
+  }
+  
+  .profile-header {
+    background: #6c757d !important;
+    -webkit-print-color-adjust: exact;
+  }
+}

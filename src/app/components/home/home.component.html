@@ -1,0 +1,106 @@
+<div class="container mt-4">
+  <div class="row">
+    <!-- Welcome Section -->
+    <div class="col-12">
+      <div class="card mb-4 welcome-card">
+        <div class="card-body">
+          <div class="row align-items-center">
+            <div class="col-md-8">
+              <h1 class="display-4 mb-2">Welcome Home!</h1>
+              <p class="lead text-muted" *ngIf="currentUser">
+                Hello {{currentUser?.username || currentUser?.username}}, you're successfully authenticated 
+                via <span class="badge bg-primary">{{currentUser?.provider}}</span>
+              </p>
+            </div>
+            <div class="col-md-4 text-center" *ngIf="currentUser?.picture">
+              <img [src]="currentUser?.picture" 
+                   class="rounded-circle profile-image" 
+                   alt="Profile Picture">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Messages Section -->
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-header bg-success text-white">
+          <h5 class="mb-0">
+            <i class="fas fa-lock"></i> Secured Message
+          </h5>
+        </div>
+        <div class="card-body">
+          <div *ngIf="isLoading" class="text-center">
+            <div class="spinner-border text-success" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+          
+          <div *ngIf="error" class="alert alert-danger">
+            <i class="fas fa-exclamation-triangle"></i> {{error}}
+          </div>
+          
+          <div *ngIf="helloMessage && !isLoading">
+            <blockquote class="blockquote">
+              <p class="mb-0">"{{helloMessage?.message}}"</p>
+            </blockquote>
+            <footer class="blockquote-footer mt-2">
+              <small class="text-muted">
+                <i class="fas fa-clock"></i> {{formatTimestamp(helloMessage?.timestamp!)}}
+              </small>
+            </footer>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-header bg-info text-white">
+          <h5 class="mb-0">
+            <i class="fas fa-globe"></i> Public Message
+          </h5>
+        </div>
+        <div class="card-body">
+          <div *ngIf="publicMessage">
+            <blockquote class="blockquote">
+              <p class="mb-0">"{{publicMessage?.message}}"</p>
+            </blockquote>
+            <footer class="blockquote-footer mt-2">
+              <small class="text-muted">
+                <i class="fas fa-clock"></i> {{formatTimestamp(publicMessage?.timestamp!)}}
+              </small>
+            </footer>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Actions Section -->
+  <div class="row mt-4">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">
+            <i class="fas fa-tools"></i> Actions
+          </h5>
+        </div>
+        <div class="card-body">
+          <div class="d-flex flex-wrap gap-2">
+            <button class="btn btn-outline-primary" (click)="refreshMessages()">
+              <i class="fas fa-sync-alt"></i> Refresh Messages
+            </button>
+            <a class="btn btn-outline-info" routerLink="/profile">
+              <i class="fas fa-user"></i> View Profile
+            </a>
+            <button class="btn btn-outline-secondary" onclick="window.location.reload()">
+              <i class="fas fa-refresh"></i> Reload Page
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
