@@ -14,10 +14,11 @@ export class KeycloakInitService {
         config: {
           url: 'http://localhost:8081',
           realm: 'secure-hello-realm',
-          clientId: 'secure-hello-client'
+          clientId: 'secure-hello-frontend'
         },
         initOptions: {
-          onLoad: 'check-sso',
+          // onLoad: 'check-sso',
+          onLoad: 'login-required',  // ✅ forces redirect to Keycloak if not logged in
           silentCheckSsoRedirectUri: window.location.origin + '/assets/silent-check-sso.html',
           checkLoginIframe: false,
           flow: 'standard'

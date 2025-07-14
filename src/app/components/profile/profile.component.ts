@@ -35,10 +35,6 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  async refreshProfile(): Promise<void> {
-    await this.loadUserProfile();
-  }
-
   getProviderIcon(provider: string): string {
     switch (provider.toLowerCase()) {
       case 'google':
