@@ -56,10 +56,6 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  async refreshMessages(): Promise<void> {
-    await this.loadMessages();
-  }
-
   formatTimestamp(timestamp: number): string {
     return new Date(timestamp).toLocaleString();
   }

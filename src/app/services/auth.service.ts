@@ -63,9 +63,9 @@ export class AuthService {
   }
 
   // Login with Google (redirect to Spring Boot OAuth2 endpoint)
-  loginWithGoogle(): void {
-    window.location.href = `${this.authUrl.replace('/auth', '')}/oauth2/authorization/google`;
-  }
+  // loginWithGoogle(): void {
+  //   window.location.href = `${this.authUrl.replace('/auth', '')}/oauth2/authorization/google`;
+  // }
 
   // Login with Keycloak
   async loginWithKeycloak(): Promise<void> {
@@ -78,22 +78,22 @@ export class AuthService {
     }
   }
 
-  // Logout
-  async logout(): Promise<void> {
-    try {
-      if (this.keycloakService.isLoggedIn()) {
-        await this.keycloakService.logout(window.location.origin + '/login');
-      } else {
-        // Session-based logout (Google)
-        window.location.href = `${this.authUrl.replace('/auth', '')}/logout`;
-      }
-    } catch (error) {
-      console.error('Logout failed:', error);
-    } finally {
-      this.currentUserSubject.next(null);
-      this.isAuthenticatedSubject.next(false);
-    }
+
+async logout(): Promise<void> {
+  try {
+    if (this.keycloakService.isLoggedIn()) {
+      // await this.keycloakService.logout(window.location.origin + '/logout');
+      await this.keycloakService.logout(window.location.origin);
+    }  } catch (error) {
+    console.error('Logout failed:', error);
+  } finally {
+    this.currentUserSubject.next(null);
+    this.isAuthenticatedSubject.next(false);
   }
+}
+
+
+
 
   // Get user information
   async getUserInfo(): Promise<UserInfo> {
