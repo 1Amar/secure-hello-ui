@@ -8,15 +8,11 @@ Secure Hello UI is an Angular application that demonstrates secure authenticatio
 
 ## Table of Contents
 1. [Features](#features)
-2. [Project Structure](#project-structure)
-3. [Prerequisites](#prerequisites)
-4. [Installation](#installation)
-5. [Configuration](#configuration)
-6. [Running the Application](#running-the-application)
-7. [Authentication Flows](#authentication-flows)
-8. [Key Components](#key-components)
-9. [Security Features](#security-features)
-10. [Deployment](#deployment)
+2. [Prerequisites](#prerequisites)
+3. [Installation](#installation)
+4. [Configuration](#configuration)
+5. [Running the Application](#running-the-application)
+6. [Authentication Flows](#authentication-flows)
 
 ## Features 
 - Multi-provider authentication (Google OAuth2 + Keycloak)
@@ -26,8 +22,6 @@ Secure Hello UI is an Angular application that demonstrates secure authenticatio
 - Silent SSO implementation
 - Reactive state management
 - Environment-specific configuration
-
-## Project Structure <a name="project-structure"></a>
 
 ## Prerequisites <a name="prerequisites"></a>
 - Node.js v18+
@@ -42,21 +36,11 @@ git clone https://github.com/yourusername/secure-hello-ui.git
 cd secure-hello-ui
 npm install
 npm install keycloak-angular keycloak-js
+```
 
 Configuration <a name="configuration"></a>
-Update environment.ts:
-export const environment = {
-  production: false,
-  apiUrl: 'http://localhost:8080/api',
-  authUrl: 'http://localhost:8080/auth',
-  keycloak: {
-    url: 'http://localhost:8081',
-    realm: 'secure-hello-realm',
-    clientId: 'secure-hello-client'
-  }
-};
 
-Configure Keycloak:
+## Configure Keycloak:
 
 Realm: secure-hello-realm
 
@@ -64,16 +48,14 @@ Client: secure-hello-client (public access)
 
 Redirect URIs: http://localhost:4200/*
 
-Running the Application 
-
+## Running the Application 
+```bash
 ng serve
+```
 Access at: http://localhost:4200
 
-Authentication Flows 
-
-# Secure Hello UI
-
-This project is an Angular application that demonstrates secure authentication and message retrieval using a Keycloak-based authentication system. It features a simple UI with login, profile, and home components, and interacts with a backend to fetch both public and secured messages.
+## Authentication Flows 
+![Security Diagram](login-flow.png)
 
 ## Features
 - User authentication with Keycloak
@@ -81,31 +63,6 @@ This project is an Angular application that demonstrates secure authentication a
 - Fetching secured and public messages from backend services
 - User profile display
 - Modular Angular structure with standalone components
-
-## Project Structure
-```
-secure-hello-ui/
-├── angular.json
-├── package.json
-├── README.md
-├── tsconfig*.json
-├── public/
-├── src/
-│   ├── index.html
-│   ├── main.ts
-│   ├── styles.scss
-│   └── app/
-│       ├── app-routing.module.ts
-│       ├── app.component.*
-│       ├── app.module.ts
-│       ├── components/
-│       │   ├── home/
-│       │   ├── login/
-│       │   └── profile/
-│       ├── guards/
-│       ├── services/
-│       └── environments/
-```
 
 ## Getting Started
 
@@ -132,21 +89,8 @@ npm start
 ```
 The app will be available at `http://localhost:4200/` by default.
 
-### Running Tests
-To execute unit tests:
-```sh
-npm test
-```
-
 ## Authentication
 This project uses Keycloak for authentication. Make sure your Keycloak server is running and the configuration in `keycloak-init.service.ts` matches your environment.
-
-## Project Structure Overview
-- `src/app/components/` — Contains feature components (home, login, profile)
-- `src/app/services/` — Contains authentication and API service logic
-- `src/app/guards/` — Contains route guards for protected routes
-- `src/assets/` — Static assets
-- `src/environments/` — Environment-specific configuration
 
 ## Customization
 - Update Keycloak settings in `keycloak-init.service.ts` as needed.
