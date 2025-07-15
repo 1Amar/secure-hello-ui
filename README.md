@@ -1,5 +1,10 @@
 # Secure Hello UI - Angular Frontend
 
+
+![Angular](https://img.shields.io/badge/Angular-v17+-red)
+![Keycloak](https://img.shields.io/badge/Keycloak-SSO-blue)
+![OAuth2](https://img.shields.io/badge/OAuth2-Google-green)
+
 ## Overview
 An Angular 17+ frontend application that integrates with Keycloak for OAuth2.0 authentication and communicates with a Spring Boot backend API. The application provides a secure user interface with authentication guards and user profile management.
 
