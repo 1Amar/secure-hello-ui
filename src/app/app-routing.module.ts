@@ -4,11 +4,7 @@ import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [  // <-- add export here
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  // {
-  //   path: 'login',
-  //   loadComponent: () =>
-  //     import('./components/login/login.component').then(m => m.LoginComponent)
-  // },
+
   {
     path: 'home',
     loadComponent: () =>
@@ -22,9 +18,11 @@ export const routes: Routes = [  // <-- add export here
     canActivate: [AuthGuard]
   },
   {
-  path: 'logout',
+  path: 'admin',
   loadComponent: () =>
-    import('./components/logout/logout.component').then(m => m.LogoutComponent)
+    import('./components/admin/admin.component').then(m => m.AdminComponent),
+  canActivate: [AuthGuard],
+  data: { roles: ['ADMIN'] }
 }
 ,
   { path: '**', redirectTo: '/home' }
@@ -34,4 +32,4 @@ export const routes: Routes = [  // <-- add export here
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

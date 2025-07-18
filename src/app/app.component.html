@@ -14,6 +14,13 @@
         <a class="nav-link" routerLink="/profile" routerLinkActive="active">
           <i class="fas fa-user"></i> Profile
         </a>
+        <!-- Admin link - only show if user is admin -->
+        <a class="nav-link" 
+           routerLink="/admin" 
+           routerLinkActive="active"
+           *ngIf="currentUser && isAdmin()">
+          <i class="fas fa-cog"></i> Admin
+        </a>
       </div>
       
       <div class="navbar-nav ms-auto" *ngIf="currentUser">
@@ -25,6 +32,8 @@
                alt="Profile">
           Welcome, {{currentUser?.name || currentUser?.username}}!
           <small class="text-muted">({{currentUser?.provider}})</small>
+          <!-- Show admin badge if user is admin -->
+          <span *ngIf="isAdmin()" class="badge bg-danger ms-2">Admin</span>
         </span>
         <button class="btn btn-outline-light btn-sm" (click)="logout()">
           <i class="fas fa-sign-out-alt"></i> Logout
