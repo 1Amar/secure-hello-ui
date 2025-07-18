@@ -1,0 +1,197 @@
+<div class="container mt-4">
+    <!-- Admin Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card admin-header">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h1 class="display-5 mb-2">
+                                <i class="fas fa-shield-alt text-danger"></i>
+                                Admin Dashboard
+                            </h1>
+                            <p class="lead text-muted" *ngIf="currentUser">
+                                Welcome back, {{currentUser?.name || currentUser?.username}}!
+                                <span class="badge bg-danger ms-2">Administrator</span>
+                            </p>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <div class="admin-stats">
+                                <div class="stat-item">
+                                    <span class="stat-number">{{users.length}}</span>
+                                    <span class="stat-label">Total Users</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Info -->
+    <div class="row mb-4" *ngIf="dashboard">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-info-circle"></i> {{dashboard.title}}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <p>{{dashboard.description}}</p>
+                    <small class="text-muted">
+                        <i class="fas fa-clock"></i> Last updated: {{formatTimestamp(dashboard.timestamp)}}
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="text-center my-5">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-2">Loading admin data...</p>
+    </div>
+
+    <!-- Alert Messages -->
+    <div *ngIf="error" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="fas fa-exclamation-triangle"></i> {{error}}
+        <button type="button" class="btn-close" (click)="error = null"></button>
+    </div>
+
+    <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fas fa-check-circle"></i> {{successMessage}}
+        <button type="button" class="btn-close" (click)="successMessage = null"></button>
+    </div>
+
+    <!-- User Management Section -->
+    <div class="row" *ngIf="!isLoading">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">
+                        <i class="fas fa-users"></i> User Management
+                    </h5>
+                    <button class="btn btn-success btn-sm" (click)="toggleCreateUserForm()">
+                        <i class="fas fa-plus"></i> Add New User
+                    </button>
+                </div>
+                <div class="card-body">
+
+                    <!-- Create User Form -->
+                    <div *ngIf="showCreateUserForm" class="mb-4">
+                        <form (ngSubmit)="createUser()" #userForm="ngForm">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="username" class="form-label">Username</label>
+                                        <input type="text" class="form-control" id="username"
+                                            [(ngModel)]="newUser.username" name="username" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" [(ngModel)]="newUser.email"
+                                            name="email" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Full Name</label>
+                                        <input type="text" class="form-control" id="name" [(ngModel)]="newUser.name"
+                                            name="name" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password"
+                                        [(ngModel)]="newUser.password" name="password" required>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Roles</label>
+                                            <div class="form-check" *ngFor="let role of availableRoles">
+                                                <input class="form-check-input" type="checkbox" [id]="'role-' + role"
+                                                    [checked]="isRoleSelected(role)"
+                                                    (change)="onRoleChange(role, $any($event.target).checked)">
+                                                <label class="form-check-label" [for]="'role-' + role">
+                                                    {{ role }}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-primary me-2"
+                                    [disabled]="!userForm.valid || isLoading">
+                                    <i class="fas fa-save"></i> Create User
+                                </button>
+                                <button type="button" class="btn btn-secondary" (click)="toggleCreateUserForm()">
+                                    <i class="fas fa-times"></i> Cancel
+                                </button>
+                            </div>
+                        </form>
+                        <hr>
+                    </div>
+
+                    <!-- Users Table -->
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Name</th>
+                                    <th>Roles</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let user of users">
+                                    <td>
+                                        <strong>{{user.username}}</strong>
+                                    </td>
+                                    <td>{{user.email}}</td>
+                                    <td>{{user.name}}</td>
+                                    <td>
+                                        <span *ngFor="let role of user.roles" [class]="getRoleBadgeClass(role)"
+                                            class="me-1">
+                                            {{getRoleDisplayName(role)}}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-danger btn-sm" (click)="deleteUser(user.username)"
+                                            [disabled]="isLoading || user.username === currentUser?.username">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div *ngIf="users.length === 0" class="text-center py-5">
+                        <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">No users found.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

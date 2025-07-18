@@ -8,7 +8,7 @@ import { AuthService, UserInfo } from './services/auth.service';
   standalone: true,
   imports: [
     CommonModule,
-    RouterModule // ✅ This is enough if routes are provided at the bootstrap level
+    RouterModule 
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
@@ -32,5 +32,13 @@ export class AppComponent implements OnInit {
 
   async logout(): Promise<void> {
     await this.authService.logout();
+  }
+
+  isAdmin(): boolean {
+    return this.authService.isAdmin();
+  }
+
+  isUser(): boolean {
+    return this.authService.isUser();
   }
 }
