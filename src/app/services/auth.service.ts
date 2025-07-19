@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { KeycloakService } from 'keycloak-angular';
+import { environment } from '../../environments/environment';
 
 export interface UserInfo {
   username: string;
@@ -48,12 +49,13 @@ export interface CreateUserRequest {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/api';
-  private authUrl = 'http://localhost:8080/auth';
-  
+  private apiUrl = environment.apiUrl;
+  private authUrl = environment.authUrl;
+
+
   private currentUserSubject = new BehaviorSubject<UserInfo | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
-  
+
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   public isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
 
@@ -74,7 +76,7 @@ export class AuthService {
         this.isAuthenticatedSubject.next(true);
         return;
       }
-      
+
       // Check if authenticated via session (Google SSO)
       this.getUserInfo().then(userInfo => {
         if (userInfo && userInfo.username !== 'Anonymous') {
@@ -118,7 +120,7 @@ export class AuthService {
   async getUserInfo(): Promise<UserInfo> {
     try {
       let headers = new HttpHeaders();
-      
+
       // Add Keycloak token if available
       if (this.keycloakService.isLoggedIn()) {
         const token = await this.keycloakService.getToken();
@@ -141,7 +143,7 @@ export class AuthService {
   async getHelloMessage(): Promise<HelloResponse> {
     try {
       let headers = new HttpHeaders();
-      
+
       // Add Keycloak token if available
       if (this.keycloakService.isLoggedIn()) {
         const token = await this.keycloakService.getToken();
@@ -169,7 +171,7 @@ export class AuthService {
   async getAdminDashboard(): Promise<AdminDashboard> {
     try {
       let headers = new HttpHeaders();
-      
+
       if (this.keycloakService.isLoggedIn()) {
         const token = await this.keycloakService.getToken();
         headers = headers.set('Authorization', `Bearer ${token}`);
@@ -190,7 +192,7 @@ export class AuthService {
   async getAllUsers(): Promise<UserSummary[]> {
     try {
       let headers = new HttpHeaders();
-      
+
       if (this.keycloakService.isLoggedIn()) {
         const token = await this.keycloakService.getToken();
         headers = headers.set('Authorization', `Bearer ${token}`);
@@ -211,7 +213,7 @@ export class AuthService {
   async createUser(userRequest: CreateUserRequest): Promise<AdminResponse> {
     try {
       let headers = new HttpHeaders();
-      
+
       if (this.keycloakService.isLoggedIn()) {
         const token = await this.keycloakService.getToken();
         headers = headers.set('Authorization', `Bearer ${token}`);
@@ -232,7 +234,7 @@ export class AuthService {
   async deleteUser(username: string): Promise<AdminResponse> {
     try {
       let headers = new HttpHeaders();
-      
+
       if (this.keycloakService.isLoggedIn()) {
         const token = await this.keycloakService.getToken();
         headers = headers.set('Authorization', `Bearer ${token}`);
@@ -256,8 +258,8 @@ export class AuthService {
     if (!currentUser || !currentUser.roles) {
       return false;
     }
-    return currentUser.roles.includes(`ROLE_${role.toUpperCase()}`) || 
-           currentUser.roles.includes(role.toUpperCase());
+    return currentUser.roles.includes(`ROLE_${role.toUpperCase()}`) ||
+      currentUser.roles.includes(role.toUpperCase());
   }
 
   hasAnyRole(roles: string[]): boolean {
