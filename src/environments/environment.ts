@@ -5,6 +5,6 @@ export const environment = {
   keycloak: {
     url: 'http://localhost:8081',
     realm: 'secure-hello-realm',
-    clientId: 'secure-hello-client'
+    clientId: 'secure-hello-frontend'
   }
 };
